@@ -12,8 +12,7 @@
 // - Return the created element
 
 
-
-const createElemWithText = (elementName ="p", textContent = "", className) => {
+const createElemWithText = (elementName = "p", textContent = "", className) => {
   const element = document.createElement(elementName);
   element.textContent = textContent;
   if (className) {
@@ -285,14 +284,13 @@ const getUsers = async () => {
 // - Return the JSON data
 
 const getUserPosts = async (userId) => {
-  if (userId) try {
+  if (!userId) return undefined;
+  try {
     const response = await fetch(`https://jsonplaceholder.typicode.com/posts?userId=${userId}`);
     return await response.json();
   } catch (error) {
     console.error(`Error fetching posts for user ${userId}:`, error);
     return null;
-  } else {
-    return undefined;
   }
 };
 
@@ -309,14 +307,13 @@ const getUserPosts = async (userId) => {
 //   - Await the response
 // - Return the JSON data
 const getUser = async (userId) => {
-  if (userId) try {
+  if (!userId) return undefined;
+  try {
     const response = await fetch(`https://jsonplaceholder.typicode.com/users/${userId}`);
     return await response.json();
   } catch (error) {
     console.error(`Error fetching user ${userId}:`, error);
     return null;
-  } else {
-    return undefined;
   }
 };
 
@@ -334,14 +331,13 @@ const getUser = async (userId) => {
 // - Return the JSON data
 
 const getPostComments = async (postId) => {
-  if (postId) try {
+  if (!postId) return undefined;
+  try {
     const response = await fetch(`https://jsonplaceholder.typicode.com/comments?postId=${postId}`);
     return await response.json();
   } catch (error) {
     console.error(`Error fetching comments for post ${postId}:`, error);
     return null;
-  } else {
-    return undefined;
   }
 };
 
@@ -402,32 +398,29 @@ const displayComments = async (postId) => {
 // - Return the fragment element
 
 const createPosts = async (posts) => {
-  if (posts) {
-    const fragment = document.createDocumentFragment();
-    // interesting to learn that forEach does not wait for the promises returned by async callbacks.
-    for (const post of posts) {
-      const article = document.createElement("article");
-      const h2 = createElemWithText("h2", post.title);
-      const pBody = createElemWithText("p", post.body);
-      const pPostId = createElemWithText("p", `Post ID: ${post.id}`);
-      const author = await getUser(post.userId);
-      const pAuthor = createElemWithText("p", `Author: ${author.name} with ${author.company.name}`);
-      const pCompanyCatchPhrase = createElemWithText("p", author.company.catchPhrase);
-      const showCommentsButton = createElemWithText("button", "Show Comments");
-      showCommentsButton.dataset.postId = post.id;
-      const section = await displayComments(post.id);
+  if (!posts) return undefined;
+  const fragment = document.createDocumentFragment();
+  // interesting to learn that forEach does not wait for the promises returned by async callbacks.
+  for (const post of posts) {
+    const article = document.createElement("article");
+    const h2 = createElemWithText("h2", post.title);
+    const pBody = createElemWithText("p", post.body);
+    const pPostId = createElemWithText("p", `Post ID: ${post.id}`);
+    const author = await getUser(post.userId);
+    const pAuthor = createElemWithText("p", `Author: ${author.name} with ${author.company.name}`);
+    const pCompanyCatchPhrase = createElemWithText("p", author.company.catchPhrase);
+    const showCommentsButton = createElemWithText("button", "Show Comments");
+    showCommentsButton.dataset.postId = post.id;
+    const section = await displayComments(post.id);
 
-      article.appendChild(h2);
-      article.appendChild(pBody);
-      article.appendChild(pPostId);
-      article.appendChild(pAuthor);
-      article.appendChild(pCompanyCatchPhrase);
-      article.appendChild(showCommentsButton);
-      article.appendChild(section);
-      fragment.appendChild(article);
-    }
-    return fragment;
-  } else {
-    return undefined;
+    article.appendChild(h2);
+    article.appendChild(pBody);
+    article.appendChild(pPostId);
+    article.appendChild(pAuthor);
+    article.appendChild(pCompanyCatchPhrase);
+    article.appendChild(showCommentsButton);
+    article.appendChild(section);
+    fragment.appendChild(article);
   }
+  return fragment;
 };
