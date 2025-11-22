@@ -160,3 +160,27 @@ const toggleComments = (event, postId) => {
 };
 
 
+// removeButtonListeners
+// Removes click event listeners from all buttons in the main element.
+//
+// **Implementation:**
+// - Select all buttons nested inside the main element
+// - Loop through the NodeList of buttons
+// - For each button:
+//   - Get `postId` from `button.dataset.id`
+// - If `postId` exists, remove the click event listener
+// - Nearly identical to `addButtonListeners`
+// - Return the button elements
+
+const removeButtonListeners = () => {
+  const buttons = document.querySelectorAll("main button");
+  buttons.forEach(button => {
+    const postId = button.dataset.postId;
+    if (postId) {
+      button.removeEventListener("click", (event) => {
+        toggleComments(event, postId);
+      });
+    }
+  });
+  return buttons;
+};
