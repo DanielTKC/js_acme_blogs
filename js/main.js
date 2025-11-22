@@ -72,3 +72,27 @@ const toggleCommentSection = (postId) => {
   section.classList.toggle('hide');
   return section;
 };
+
+// toggleCommentButton
+// Changes button text between "Show Comments" and "Hide Comments".
+
+// **Parameters:**
+// - `postId` (number) - The post ID for the button
+//
+// **Implementation:**
+// - Select the button with `data-post-id` attribute equal to `postId`
+// - If button text is `'Show Comments'`, change to `'Hide Comments'`
+// - If button text is `'Hide Comments'`, change to `'Show Comments'`
+// - *Suggestion: Use a ternary statement*
+// - Return the button element
+//
+//
+
+const toggleCommentButton = (postId) => {
+  if (!postId) return undefined;
+  const button = document.querySelector(`button[data-post-id="${postId}"]`);
+  if (!button) return null;
+  button.textContent = (button.textContent === 'Show Comments') ? 'Hide Comments' : 'Show Comments';
+  return button;
+
+}
