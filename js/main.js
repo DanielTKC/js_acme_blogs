@@ -96,3 +96,30 @@ const toggleCommentButton = (postId) => {
   return button;
 
 }
+
+// deleteChildElements
+// Removes all child elements from a parent element.
+//
+// **Parameters:**
+// - `parentElement` (HTMLElement) - The parent element to clear
+//
+// **Implementation:**
+// - Define `child` variable as `parentElement.lastElementChild`
+// - Use a while loop: while child exists
+// - Use `parentElement.removeChild()` to remove the child
+// - Reassign `child` to `parentElement.lastElementChild`
+// - Return the `parentElement`
+//
+// ---
+
+const deleteChildElements = (parentElement) => {
+  if (!parentElement?.tagName) return undefined;
+  let child = parentElement.lastElementChild;
+  while (child) {
+
+    parentElement.removeChild(child);
+    child = parentElement.lastElementChild;
+
+  }
+  return parentElement;
+}
