@@ -222,3 +222,30 @@ const createComments = (comments) => {
   });
   return fragment;
 };
+
+// populateSelectMenu
+// **Dependencies:** `createSelectOptions`
+//
+// Populates the select menu with user options.
+//
+// **Parameters:**
+// - `users` (array) - Users JSON data
+//
+// **Implementation:**
+// - Select the `#selectMenu` element by id
+// - Pass users data to `createSelectOptions()`
+// - Receive an array of option elements
+// - Loop through options and append each to the select menu
+// - Return the `selectMenu` element
+const populateSelectMenu = (users) => {
+  // I put the commented out line first and it does pass the check in the test, but it feels wrong.
+  // It should be checking for an array, not a string.
+  // if (typeof users !== 'string' ) return undefined;
+  if (!Array.isArray(users)) return undefined;
+  const selectMenu = document.getElementById("selectMenu");
+  const options = createSelectOptions(users);
+  options.forEach(option => {
+    selectMenu.appendChild(option);
+  });
+  return selectMenu;
+};
