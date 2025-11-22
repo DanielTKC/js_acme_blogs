@@ -372,4 +372,62 @@ const displayComments = async (postId) => {
   const fragment = createComments(comments);
   section.appendChild(fragment);
   return section;
-}
+};
+
+// createPosts
+// **Dependencies:** `createElemWithText`, `getUser`, `displayComments`
+//
+// Creates post elements from JSON data.
+//
+// **Parameters:**
+// - `posts` (array) - Posts JSON data
+//
+// **Implementation:**
+// - Should be an async function
+// - Create a fragment with `document.createDocumentFragment()`
+// - Loop through posts data
+// - For each post:
+//   - Create an article element
+// - Create an h2 with the post title
+// - Create a paragraph with the post body
+// - Create a paragraph with `\`Post ID: ${post.id}\``
+// - Define: `author = await getUser(post.userId)`
+// - Create a paragraph with `\`Author: ${author.name} with ${author.company.name}\``
+// - Create a paragraph with author's company catch phrase
+// - Create a button with text `'Show Comments'`
+// - Set `button.dataset.postId = post.id`
+// - Create: `section = await displayComments(post.id)`
+// - Append h2, paragraphs, button, and section to article
+// - Append article to fragment
+// - Return the fragment element
+
+const createPosts = async (posts) => {
+  if (posts) {
+    const fragment = document.createDocumentFragment();
+    // interesting to learn that forEach does not wait for the promises returned by async callbacks.
+    for (const post of posts) {
+      const article = document.createElement("article");
+      const h2 = createElemWithText("h2", post.title);
+      const pBody = createElemWithText("p", post.body);
+      const pPostId = createElemWithText("p", `Post ID: ${post.id}`);
+      const author = await getUser(post.userId);
+      const pAuthor = createElemWithText("p", `Author: ${author.name} with ${author.company.name}`);
+      const pCompanyCatchPhrase = createElemWithText("p", author.company.catchPhrase);
+      const showCommentsButton = createElemWithText("button", "Show Comments");
+      showCommentsButton.dataset.postId = post.id;
+      const section = await displayComments(post.id);
+
+      article.appendChild(h2);
+      article.appendChild(pBody);
+      article.appendChild(pPostId);
+      article.appendChild(pAuthor);
+      article.appendChild(pCompanyCatchPhrase);
+      article.appendChild(showCommentsButton);
+      article.appendChild(section);
+      fragment.appendChild(article);
+    }
+    return fragment;
+  } else {
+    return undefined;
+  }
+};
