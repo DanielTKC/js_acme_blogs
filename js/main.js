@@ -296,3 +296,27 @@ const getUserPosts = async (userId) => {
   }
 };
 
+// getUser
+// Fetches data for a specific user.
+//
+// **Parameters:**
+// - `userId` (number) - The user ID
+//
+// **Implementation:**
+// - Should be an async function
+// - Use try/catch block
+// - Fetch from: https://jsonplaceholder.typicode.com/users/{userId}
+//   - Await the response
+// - Return the JSON data
+const getUser = async (userId) => {
+  if (userId) try {
+    const response = await fetch(`https://jsonplaceholder.typicode.com/users/${userId}`);
+    return await response.json();
+  } catch (error) {
+    console.error(`Error fetching user ${userId}:`, error);
+    return null;
+  } else {
+    return undefined;
+  }
+};
+
