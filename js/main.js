@@ -424,3 +424,28 @@ const createPosts = async (posts) => {
   }
   return fragment;
 };
+
+// displayPosts
+// **Dependencies:** `createPosts`, `createElemWithText`
+//
+// Displays posts in the main element.
+//
+// **Parameters:**
+// - `posts` (array) - Posts data
+//
+// **Implementation:**
+// - Should be an async function
+// - Select the main element
+// - Define `element` variable:
+//   - If posts exist: `element = await createPosts(posts)`
+// - If posts don't exist: create default paragraph (identical to HTML file)
+// - *Suggestion: Use a ternary operator*
+// - Append element to main element
+// - Return the element variable
+const displayPosts = async (posts) => {
+  const main = document.querySelector("main");
+  const element = posts ? await createPosts(posts) : createElemWithText(
+    "p", "Select an Employee to display their posts.", "default-text");
+  main.appendChild(element);
+  return element;
+}
