@@ -51,3 +51,24 @@ const createSelectOptions = (users) => {
 
 // console.log(createSelectOptions(testUsers));
 //
+// toggleCommentSection
+// Toggles visibility of a comment section for a specific post.
+//
+// **Parameters:**
+// - `postId` (number) - The post ID to toggle
+//
+// **Implementation:**
+// - Select the section element with `data-post-id` attribute equal to `postId`
+// - Verify the section exists before accessing `classList`
+// - Toggle the `'hide'` class on the section element
+// - Return the section element
+//
+//
+
+const toggleCommentSection = (postId) => {
+  if (!postId) return undefined;
+  const section = document.querySelector(`section[data-post-id="${postId}"]`);
+  if (!section) return null;
+  section.classList.toggle('hide');
+  return section;
+};
