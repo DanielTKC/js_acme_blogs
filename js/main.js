@@ -320,3 +320,27 @@ const getUser = async (userId) => {
   }
 };
 
+// getPostComments
+// Fetches all comments for a specific post.
+//
+// **Parameters:**
+// - `postId` (number) - The post ID
+//
+// **Implementation:**
+// - Should be an async function
+// - Use try/catch block
+// - Fetch from: https://jsonplaceholder.typicode.com/comments?postId={postId}
+//   - Await the response
+// - Return the JSON data
+
+const getPostComments = async (postId) => {
+  if (postId) try {
+    const response = await fetch(`https://jsonplaceholder.typicode.com/comments?postId=${postId}`);
+    return await response.json();
+  } catch (error) {
+    console.error(`Error fetching comments for post ${postId}:`, error);
+    return null;
+  } else {
+    return undefined;
+  }
+};
