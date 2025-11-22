@@ -123,3 +123,38 @@ const deleteChildElements = (parentElement) => {
   }
   return parentElement;
 }
+
+//  addButtonListeners
+// Adds click event listeners to all buttons in the main element.
+//
+// **Implementation:**
+// - Select all buttons nested inside the main element
+// - If buttons exist, loop through the NodeList
+// - For each button:
+//   - Get `postId` from `button.dataset.postId`
+// - If `postId` exists, add a click event listener
+// - The listener calls an anonymous function
+// - Inside the anonymous function, call `toggleComments(event, postId)`
+// - Return the button elements
+// - *Note: Define an empty `toggleComments` function for initial testing*
+//
+//
+
+const addButtonListeners = () => {
+  const buttons = document.querySelectorAll("main button");
+
+  buttons.forEach(button => {
+    const postId = button.dataset.postId;
+    if (postId) {
+      button.addEventListener("click", (event) => {
+        toggleComments(event, postId);
+      });
+    }
+  });
+  return buttons;
+}
+
+const toggleComments = (event, postId) => {
+  return 0;
+
+};
