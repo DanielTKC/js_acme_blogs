@@ -237,6 +237,7 @@ const createComments = (comments) => {
 // - Receive an array of option elements
 // - Loop through options and append each to the select menu
 // - Return the `selectMenu` element
+
 const populateSelectMenu = (users) => {
   // I put the commented out line first and it does pass the check in the test, but it feels wrong.
   // It should be checking for an array, not a string.
@@ -249,3 +250,49 @@ const populateSelectMenu = (users) => {
   });
   return selectMenu;
 };
+
+// getUsers
+// Fetches all users from the API.
+
+// **Implementation:**
+// - Should be an async function
+// - Use try/catch block
+// - Fetch from: https://jsonplaceholder.typicode.com/users
+//   - Await the response
+// - Return the JSON data
+
+const getUsers = async () => {
+  try {
+    const response = await fetch("https://jsonplaceholder.typicode.com/users");
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    return null;
+  }
+};
+
+// getUserPosts
+// Fetches all posts for a specific user.
+//
+// **Parameters:**
+// - `userId` (number) - The user ID
+//
+// **Implementation:**
+// - Should be an async function
+// - Use try/catch block
+// - Fetch from: https://jsonplaceholder.typicode.com/posts?userId={userId}
+//   - Await the response
+// - Return the JSON data
+
+const getUserPosts = async (userId) => {
+  if (userId) try {
+    const response = await fetch(`https://jsonplaceholder.typicode.com/posts?userId=${userId}`);
+    return await response.json();
+  } catch (error) {
+    console.error(`Error fetching posts for user ${userId}:`, error);
+    return null;
+  } else {
+    return undefined;
+  }
+};
+
