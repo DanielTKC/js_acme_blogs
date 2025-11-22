@@ -95,7 +95,7 @@ const toggleCommentButton = (postId) => {
   button.textContent = (button.textContent === 'Show Comments') ? 'Hide Comments' : 'Show Comments';
   return button;
 
-}
+};
 
 // deleteChildElements
 // Removes all child elements from a parent element.
@@ -122,7 +122,7 @@ const deleteChildElements = (parentElement) => {
 
   }
   return parentElement;
-}
+};
 
 //  addButtonListeners
 // Adds click event listeners to all buttons in the main element.
@@ -152,9 +152,11 @@ const addButtonListeners = () => {
     }
   });
   return buttons;
-}
+};
 
 const toggleComments = (event, postId) => {
   return 0;
 
 };
+
+
