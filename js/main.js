@@ -470,3 +470,32 @@ const toggleComments = (event, postId) => {
   return [section, button];
 
 };
+
+// refreshPosts
+// **Dependencies:** `removeButtonListeners`, `deleteChildElements`, `displayPosts`, `addButtonListeners`
+//
+// Refreshes the posts display with new data.
+//
+// **Parameters:**
+// - `posts` (array) - Posts JSON data
+//
+// **Implementation:**
+// - Should be an async function
+// - Call `removeButtonListeners()`
+// - Store the returned buttons
+// - Call `deleteChildElements(main)`
+// - Store the returned main element
+// - Call `await displayPosts(posts)`
+// - Store the returned fragment
+// - Call `addButtonListeners()`
+// - Store the returned buttons
+// - Return `[removeButtons, main, fragment, addButtons]`
+
+const refreshPosts = async (posts) => {
+  if (!posts) return undefined;
+  const removeButtons = removeButtonListeners();
+  const main = deleteChildElements(document.querySelector("main"));
+  const fragment = await displayPosts(posts);
+  const addButtons = addButtonListeners();
+  return [removeButtons, main, fragment, addButtons];
+}
