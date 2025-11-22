@@ -153,10 +153,6 @@ const addButtonListeners = () => {
   return buttons;
 };
 
-const toggleComments = (event, postId) => {
-  return 0;
-
-};
 
 
 // removeButtonListeners
@@ -449,3 +445,28 @@ const displayPosts = async (posts) => {
   main.appendChild(element);
   return element;
 }
+
+// toggleComments
+// **Dependencies:** `toggleCommentSection`, `toggleCommentButton`
+//
+// Handles comment toggle functionality.
+//
+// **Parameters:**
+// - `event` (Event) - The click event
+// - `postId` (number) - The post ID
+//
+// **Implementation:**
+// - Set `event.target.listener = true` (required for testing)
+//   - Pass `postId` to `toggleCommentSection()`
+// - Store the returned section element
+// - Pass `postId` to `toggleCommentButton()`
+// - Store the returned button element
+// - Return `[section, button]`
+const toggleComments = (event, postId) => {
+  if (!event || !postId) return undefined;
+  event.target.listener = true;
+  const section = toggleCommentSection(postId);
+  const button = toggleCommentButton(postId);
+  return [section, button];
+
+};
