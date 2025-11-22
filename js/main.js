@@ -344,3 +344,32 @@ const getPostComments = async (postId) => {
     return undefined;
   }
 };
+
+// displayComments
+// **Dependencies:** `getPostComments`, `createComments`
+//
+// Creates and returns a section element with comments.
+//
+// **Parameters:**
+// - `postId` (number) - The post ID
+//
+// **Implementation:**
+// - Should be an async function
+// - Create a section element with `document.createElement()`
+// - Set `section.dataset.postId` attribute
+// - Add classes `'comments'` and `'hide'` to the section
+// - Create variable: `comments = await getPostComments(postId)`
+// - Create variable: `fragment = createComments(comments)`
+// - Append fragment to section
+// - Return the section element
+
+const displayComments = async (postId) => {
+  if (!postId) return undefined;
+  const section = document.createElement("section");
+  section.dataset.postId = postId;
+  section.classList.add("comments", "hide");
+  const comments = await getPostComments(postId);
+  const fragment = createComments(comments);
+  section.appendChild(fragment);
+  return section;
+}
