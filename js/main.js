@@ -184,3 +184,41 @@ const removeButtonListeners = () => {
   });
   return buttons;
 };
+
+// createComments
+// **Dependencies:** `createElemWithText`
+//
+// Creates comment elements from JSON data.
+//
+// **Parameters:**
+// - `comments` (array) - JSON comments data
+//
+// **Implementation:**
+// - Create a fragment with `document.createDocumentFragment()`
+// - Loop through comments
+// - For each comment:
+//   - Create an article element with `document.createElement()`
+// - Create an h3 with `createElemWithText('h3', comment.name)`
+// - Create a paragraph with `createElemWithText('p', comment.body)`
+// - Create a paragraph with `createElemWithText('p', \`From: ${comment.email}\`)`
+// - Append the h3 and paragraphs to the article
+// - Append the article to the fragment
+// - Return the fragment element
+
+const createComments = (comments) => {
+  if (!comments) return undefined;
+  const fragment = document.createDocumentFragment();
+  comments.forEach(comment => {
+    const article = document.createElement("article");
+    const h3 = createElemWithText("h3", comment.name);
+    const pBody = createElemWithText("p", comment.body);
+    const pEmail = createElemWithText("p", `From: ${comment.email}`);
+
+    article.appendChild(h3);
+    article.appendChild(pBody);
+    article.appendChild(pEmail);
+    fragment.appendChild(article);
+
+  });
+  return fragment;
+};
