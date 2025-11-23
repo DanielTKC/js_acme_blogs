@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/5bc6207b-f37f-4e60-93b8-36d80049450e/deploy-status)](https://app.netlify.com/projects/vocal-salamander-5d77e0/deploys)
+
 # Acme Blogs
 
 [![Remix on Glitch](https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg)](https://glitch.com/edit/#!/import/github/gitdagray/js_acme_blogs)
