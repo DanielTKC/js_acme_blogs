@@ -408,13 +408,8 @@ const createPosts = async (posts) => {
     showCommentsButton.dataset.postId = post.id;
     const section = await displayComments(post.id);
 
-    article.appendChild(h2);
-    article.appendChild(pBody);
-    article.appendChild(pPostId);
-    article.appendChild(pAuthor);
-    article.appendChild(pCompanyCatchPhrase);
-    article.appendChild(showCommentsButton);
-    article.appendChild(section);
+    article.append(h2, pBody, pPostId, pAuthor, pCompanyCatchPhrase, showCommentsButton, section);
+
     fragment.appendChild(article);
   }
   return fragment;
