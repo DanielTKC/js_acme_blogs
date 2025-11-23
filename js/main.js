@@ -146,8 +146,7 @@ const addButtonListeners = () => {
     const postId = button.dataset.postId;
     if (postId) {
       button.addEventListener("click", (event) => {
-        toggleComments(event, postId);
-      });
+        toggleComments(event, postId)}, false);
     }
   });
   return buttons;
@@ -286,7 +285,7 @@ const getUserPosts = async (userId) => {
     return await response.json();
   } catch (error) {
     console.error(`Error fetching posts for user ${userId}:`, error);
-    return null;
+    return [];
   }
 };
 
@@ -303,7 +302,7 @@ const getUserPosts = async (userId) => {
 //   - Await the response
 // - Return the JSON data
 const getUser = async (userId) => {
-  if (!userId) return undefined;
+  if (!userId || userId < 1) return undefined;
   try {
     const response = await fetch(`https://jsonplaceholder.typicode.com/users/${userId}`);
     return await response.json();
@@ -498,4 +497,79 @@ const refreshPosts = async (posts) => {
   const fragment = await displayPosts(posts);
   const addButtons = addButtonListeners();
   return [removeButtons, main, fragment, addButtons];
+};
+
+// selectMenuChangeEventHandler
+// **Dependencies:** `getUserPosts`, `refreshPosts`
+//
+// Handles select menu change events.
+//
+// **Parameters:**
+// - `event` (Event) - Automatically received
+//
+// **Implementation:**
+// - Should be an async function
+// - Disable the select menu (`disabled` property)
+// - Define: `userId = event.target.value || 1`
+// - Pass `userId` to `await getUserPosts(userId)`
+// - Store the returned posts data
+// - Pass posts to `await refreshPosts(posts)`
+// - Store the returned `refreshPostsArray`
+// - Enable the select menu
+// - Return `[userId, posts, refreshPostsArray]`
+
+const selectMenuChangeEventHandler = async (event) => {
+  if (!event) return undefined;
+  const selectMenu = event.target;
+  if (selectMenu) {
+    selectMenu.disabled = true;
+  }
+  const userId = Number(event?.target?.value) || 1;
+  const posts = await getUserPosts(userId);
+  const refreshPostsArray = await refreshPosts(posts);
+  if (selectMenu) {
+    selectMenu.disabled = false;
+  }
+  return [userId, posts, refreshPostsArray];
+};
+
+// initPage
+// Dependencies: getUsers, populateSelectMenu
+//
+// Initializes the page on load.
+//
+//   Implementation:
+//
+// Should be an async function
+// No parameters
+// Call await getUsers()
+// Store the returned users data
+// Pass users to populateSelectMenu(users)
+// Store the returned select element
+// Return [users, select]
+const initPage = async () => {
+  const users = await getUsers();
+  const select = populateSelectMenu(users);
+  return [users, select];
+};
+
+// initApp
+// Dependencies: initPage, selectMenuChangeEventHandler
+//
+// Initializes the application.
+//
+//   Implementation:
+//
+// Call initPage()
+// Select the #selectMenu element by id
+// Add event listener to #selectMenu for the "change" event
+// Event listener should call selectMenuChangeEventHandler
+// Does not return anything
+const initApp = async () => {
+  await initPage();
+  const selectMenu = document.getElementById("selectMenu");
+  selectMenu.addEventListener("change", selectMenuChangeEventHandler);
+
 }
+
+document.addEventListener("DOMContentLoaded", initApp);
