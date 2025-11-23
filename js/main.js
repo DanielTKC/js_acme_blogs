@@ -208,10 +208,8 @@ const createComments = (comments) => {
     const pBody = createElemWithText("p", comment.body);
     const pEmail = createElemWithText("p", `From: ${comment.email}`);
 
-    article.appendChild(h3);
-    article.appendChild(pBody);
-    article.appendChild(pEmail);
-    fragment.appendChild(article);
+    article.append(h3, pBody,pEmail);
+    fragment.append(article);
 
   });
   return fragment;
@@ -240,7 +238,7 @@ const populateSelectMenu = (users) => {
   const selectMenu = document.getElementById("selectMenu");
   const options = createSelectOptions(users);
   options.forEach(option => {
-    selectMenu.appendChild(option);
+    selectMenu.append(option);
   });
   return selectMenu;
 };
@@ -361,7 +359,7 @@ const displayComments = async (postId) => {
   section.classList.add("comments", "hide");
   const comments = await getPostComments(postId);
   const fragment = createComments(comments);
-  section.appendChild(fragment);
+  section.append(fragment);
   return section;
 };
 
@@ -410,7 +408,7 @@ const createPosts = async (posts) => {
 
     article.append(h2, pBody, pPostId, pAuthor, pCompanyCatchPhrase, showCommentsButton, section);
 
-    fragment.appendChild(article);
+    fragment.append(article);
   }
   return fragment;
 };
@@ -436,7 +434,7 @@ const displayPosts = async (posts) => {
   const main = document.querySelector("main");
   const element = posts ? await createPosts(posts) : createElemWithText(
     "p", "Select an Employee to display their posts.", "default-text");
-  main.appendChild(element);
+  main.append(element);
   return element;
 }
 
